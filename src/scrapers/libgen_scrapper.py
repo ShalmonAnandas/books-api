@@ -1,5 +1,4 @@
 import requests
-import json
 from bs4 import BeautifulSoup
 
 def get_libgen_rs_fiction_scraper(query: str, criteria: str, page: int = 1, responseList: list = []):
