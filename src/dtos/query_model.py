@@ -17,16 +17,19 @@ def to_class(c: Type[T], x: Any) -> dict:
 
 class QueryModel(BaseModel):
     search_query: str
+    criteria: str
 
     @staticmethod
-    def from_dict(obj: Any) -> "QueryModel":
+    def from_dict(obj: Any) -> 'QueryModel':
         assert isinstance(obj, dict)
         search_query = from_str(obj.get("search_query"))
-        return QueryModel(search_query)
+        criteria = from_str(obj.get("criteria"))
+        return QueryModel(search_query, criteria)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["search_query"] = from_str(self.search_query)
+        result["criteria"] = from_str(self.criteria)
         return result
 
 
