@@ -1,6 +1,7 @@
 # Books API
 Another simple libgen.rs scraper because every other one were kinda ass. Wrapped with Fastapi to make my life easier. 
-
+## Quick Deploy for all my lazy folks out there
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FShalmonAnandas%2Fbooks-api)
 ## Search
 ###  URL: 
  ```http
@@ -45,3 +46,7 @@ javascript
   "IPFS.io": "https://gateway.ipfs.io/ipfs/bafykbzacedukmx6r52i5q4jfa34i2gp7d63fjm5riawkj4u23awmfmxvv66wo?filename=MacNabb%2C%20Matt_%20%20-%20A%20Secret%20History%20of%20Brands_%20The%20Dark%20and%20Twisted%20Beginnings%20of%20the%20Brand%20Names%20We%20Know%20and%20Love.epub"
 }
 ```
+
+## 🤝 Thanks 🤝
+https://github.com/hebertcisco/deploy-python-fastapi-in-vercel - Because I for providing the fastapi template to deploy to vercel, because I couldn't figure it out through my sleep deprivation
+https://libgen.rs/ - For being so easy to scrape. Love you guys.
