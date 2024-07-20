@@ -48,5 +48,6 @@ javascript
 ```
 
 ## 🤝 Thanks 🤝
-https://github.com/hebertcisco/deploy-python-fastapi-in-vercel - Because I for providing the fastapi template to deploy to vercel, because I couldn't figure it out through my sleep deprivation
-https://libgen.rs/ - For being so easy to scrape. Love you guys.
+[Deploy-Python-Fastapi-in-vercel](https://github.com/hebertcisco/deploy-python-fastapi-in-vercel) - For providing the fastapi template to deploy to vercel, because I couldn't figure it out through my sleep deprivation
+
+[Libgen](https://libgen.rs/) - For being so easy to scrape. Love you guys.
