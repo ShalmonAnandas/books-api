@@ -34,11 +34,11 @@ async def getDownloadLinks(item: Book):
     return getDownload(item)
 
 
-async def searchBook(searchTerm: str, isSearchAuthor: bool):
+def searchBook(searchTerm: str, isSearchAuthor: bool):
     if isSearchAuthor:
-        results = libgen.search_author(searchTerm.replace("%20", " "))
+        results =  libgen.search_author(searchTerm.replace("%20", " "))
     else:
-        results = libgen.search_title(searchTerm.replace("%20", " "))
+        results =  libgen.search_title(searchTerm.replace("%20", " "))
     tempList = []
     for result in results:
         lowercase_data = {k.lower(): v for k, v in result.items()}
@@ -46,5 +46,5 @@ async def searchBook(searchTerm: str, isSearchAuthor: bool):
     return tempList
 
 
-async def getDownload(downloadLink: Book):
-    return libgen.resolve_download_links(downloadLink.to_dict())
+def getDownload(downloadLink: Book):
+    return  libgen.resolve_download_links(downloadLink.to_dict())
