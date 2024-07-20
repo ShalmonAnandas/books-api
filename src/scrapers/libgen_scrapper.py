@@ -37,8 +37,6 @@ def get_libgen_rs_fiction_scraper(query: str, criteria: str, page: int = 1, resp
         mirrors = mirrors_td.find_all('a') if mirrors_td else []
         mirror_1 = mirrors[0]['href'] if len(mirrors) > 0 else None
 
-        
-        
         # Create JSON object
         json_obj = {
             'author': author,
