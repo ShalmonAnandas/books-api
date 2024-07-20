@@ -29,22 +29,17 @@ async def getSearchResultsByAuthor(query: QueryModel):
     return results
 
 
-@app.post("/links")
-async def getDownloadLinks(item: Book):
-    return getDownload(item)
-
-
 def searchBook(searchTerm: str, isSearchAuthor: bool):
     if isSearchAuthor:
-        results =  libgen.search_author(searchTerm.replace("%20", " "))
+        results =  libgen.search_author_filtered(searchTerm.replace("%20", " "), {"Language": "English"})
     else:
-        results =  libgen.search_title(searchTerm.replace("%20", " "))
+        results =  libgen.search_title_filtered(searchTerm.replace("%20", " "), {"Language": "English"})
     tempList = []
     for result in results:
         lowercase_data = {k.lower(): v for k, v in result.items()}
+        download_links = libgen.resolve_download_links(result)
+        lowercase_data["mirror_1"] = download_links["GET"]
+        lowercase_data["mirror_2"] = download_links["Cloudflare"]
+        lowercase_data["mirror_3"] = download_links["IPFS.io"]
         tempList.append(lowercase_data)
     return tempList
-
-
-def getDownload(downloadLink: Book):
-    return  libgen.resolve_download_links(downloadLink.to_dict())

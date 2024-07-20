@@ -32,18 +32,18 @@ class Book(BaseModel):
     @staticmethod
     def from_dict(obj: Any) -> "Book":
         assert isinstance(obj, dict)
-        id = int(from_str(obj.get("ID")))
-        author = from_str(obj.get("Author"))
-        title = from_str(obj.get("Title"))
-        publisher = from_str(obj.get("Publisher"))
-        year = int(from_str(obj.get("Year")))
-        pages = int(from_str(obj.get("Pages")))
-        language = from_str(obj.get("Language"))
-        size = from_str(obj.get("Size"))
-        extension = from_str(obj.get("Extension"))
-        mirror_1 = from_str(obj.get("Mirror_1"))
-        mirror_2 = from_str(obj.get("Mirror_2"))
-        mirror_3 = from_str(obj.get("Mirror_3"))
+        id = int(from_str(obj.get("id")))
+        author = from_str(obj.get("author"))
+        title = from_str(obj.get("title"))
+        publisher = from_str(obj.get("publisher"))
+        year = int(from_str(obj.get("year")))
+        pages = int(from_str(obj.get("pages")))
+        language = from_str(obj.get("language"))
+        size = from_str(obj.get("size"))
+        extension = from_str(obj.get("extension"))
+        mirror_1 = from_str(obj.get("mirror_1"))
+        mirror_2 = from_str(obj.get("mirror_2"))
+        mirror_3 = from_str(obj.get("mirror_3"))
         return Book(
             id,
             author,
