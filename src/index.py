@@ -4,8 +4,8 @@ from libgen_api import LibgenSearch
 import uvicorn
 
 # API MODELS
-from models.book_result_model import Book
-from models.query_model import QueryModel
+from dtos.book_result_model import Book
+from dtos.query_model import QueryModel
 
 app = FastAPI()
 
