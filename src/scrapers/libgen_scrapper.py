@@ -41,7 +41,7 @@ def get_libgen_rs_fiction_scraper(query: str) -> list:
         json_obj = {
             "author": author,
             "title": title,
-            "poster": f"https://libgen.gs/{str(img_src).replace("_small", "")}",
+            "poster": f"https://libgen.gs{str(img_src).replace("_small", "")}",
             # "id": title_href.split("/")[2],
             "language": language,
             "release_date": release_date,
