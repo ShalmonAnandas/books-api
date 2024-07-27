@@ -14,9 +14,9 @@ async def root():
     return {"message" : "Welcome to Books API"}
 
 
-@app.post("/book")
-async def getsearchResults(query: QueryModel):
-    return get_libgen_rs_fiction_scraper(query.search_query, query.criteria, 1, [])
+@app.get("/search/{query}")
+async def getsearchResults(query: str):
+    return get_libgen_rs_fiction_scraper(query.replace("%20", "+"))
 
 @app.post("/dl")
 async def get_book_download_links(mirror: MirrorModel):

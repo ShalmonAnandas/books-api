@@ -1,57 +1,55 @@
 import requests
 from bs4 import BeautifulSoup
 
-def get_libgen_rs_fiction_scraper(query: str, criteria: str, page: int = 1, responseList: list = []):
-    request = query.replace(" ", "+")
-    # print(f"https://libgen.rs/fiction/?q={request}&criteria={criteria}&language=English&page={page}")
-    r = requests.get(f"https://libgen.rs/fiction/?q={request}&criteria={criteria}&language=English&page={page}")
+def get_libgen_rs_fiction_scraper(query: str, responseList: list = []) -> list:
+    r = requests.get(f"https://libgen.gs/index.php?req={query}&columns%5B%5D=t&columns%5B%5D=a&topics%5B%5D=l&topics%5B%5D=f&res=100&covers=on")
 
     soup = BeautifulSoup(r.content, 'html.parser')
 
-    # Find all <tr> elements within <tbody>
-    total_pages = int(soup.find('span', class_="page_selector").text.strip().split("/")[1].strip()) if soup.find('span', "page_selector") else 1
-    tbody = soup.find('tbody')
-    rows = tbody.find_all('tr')
+    table = soup.find("table", class_="table table-striped")
+    tbody = table.find("tbody")
+    rows = tbody.find_all("tr")
 
-    # Iterate through each row
     for row in rows:
-        # Extract author
-        author_td = row.find('td')
-        authors = author_td.find_all('a') if author_td else []
-        author_list = [author.text.strip() for author in authors]
-        author = ", ".join(author_list) if author_list else None
-        
-        # Extract title and title href
-        title_td = row.find_all('td')[2]
-        title_a = title_td.find('a') if title_td else None
-        title = title_a.text.strip() if title_a else None
-        title_href = title_a['href'] if title_a else None
-        
-        # Extract language
-        language_td = row.find_all('td')[3]
-        language = language_td.text.strip() if language_td else None
-        
-        # Extract mirrors
-        mirrors_td = row.find_all('td')[5]
-        mirrors = mirrors_td.find_all('a') if mirrors_td else []
-        mirror_1 = mirrors[0]['href'] if len(mirrors) > 0 else None
+        # Extracting image source
+        img_tag = row.find('td').find('img')
+        img_src = img_tag['src'] if img_tag else None
+
+        # Extracting title
+        title_tag = row.find('a', title=True)
+        title = title_tag['title'].split("<br>")[1] if title_tag else None
+
+        # Extracting author
+        author_tag = row.find_all('td')[2]
+        author = author_tag.text.strip() if author_tag else None
+
+        # Extracting release date
+        release_date_tag = row.find_all('td')[4].find('nobr')
+        release_date = release_date_tag.text.strip() if release_date_tag else None
+
+        # Extracting language
+        language_tag = row.find_all('td')[5]
+        language = language_tag.text.strip() if language_tag else None
+
+        # Extracting URL
+        url_tag = row.find('a', href=True, title="libgen.is")
+        url = url_tag['href'] if url_tag else None
 
         # Create JSON object
         json_obj = {
-            'author': author,
-            'title': title,
-            "id": title_href.split("/")[2],
-            'language': language,
-            'download_links': mirror_1
+            "author": author,
+            "title": title,
+            "poster": f"https://libgen.gs/{str(img_src).replace("_small", "")}",
+            # "id": title_href.split("/")[2],
+            "language": language,
+            "release_date": release_date,
+            "download_links": url
         }
         
         # Add to list
         responseList.append(json_obj)
 
-    if page < total_pages:
-        return get_libgen_rs_fiction_scraper(query, criteria, page + 1, responseList)
-    else:
-        return responseList
+    return responseList
     
 def get_download_links(mirror: str):
     MIRROR_SOURCES = ["GET", "Cloudflare", "IPFS.io", "Infura"]
