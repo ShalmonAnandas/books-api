@@ -1,10 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 
-def get_libgen_rs_fiction_scraper(query: str, responseList: list = []) -> list:
+def get_libgen_rs_fiction_scraper(query: str) -> list:
     r = requests.get(f"https://libgen.gs/index.php?req={query}&columns%5B%5D=t&columns%5B%5D=a&topics%5B%5D=l&topics%5B%5D=f&res=100&covers=on")
 
     soup = BeautifulSoup(r.content, 'html.parser')
+
+    results = []
 
     table = soup.find("table", class_="table table-striped")
     tbody = table.find("tbody")
@@ -47,9 +49,9 @@ def get_libgen_rs_fiction_scraper(query: str, responseList: list = []) -> list:
         }
         
         # Add to list
-        responseList.append(json_obj)
+        results.append(json_obj)
 
-    return responseList
+    return results
     
 def get_download_links(mirror: str):
     MIRROR_SOURCES = ["GET", "Cloudflare", "IPFS.io", "Infura"]
