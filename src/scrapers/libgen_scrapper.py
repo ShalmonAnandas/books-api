@@ -33,6 +33,15 @@ def get_libgen_rs_fiction_scraper(query: str) -> list:
         language_tag = row.find_all('td')[5]
         language = language_tag.text.strip() if language_tag else None
 
+        pages_tag = row.find_all('td')[6]
+        pages = pages_tag.text.strip() if pages_tag else None
+
+        size_tag = row.find_all('td')[7]
+        size = size_tag.text.strip() if size_tag else None
+
+        extention_tag = row.find_all('td')[8]
+        extention = extention_tag.text.strip() if extention_tag else None
+
         # Extracting URL
         url_tag = row.find('a', href=True, title="libgen.is")
         url = url_tag['href'] if url_tag else None
@@ -44,6 +53,9 @@ def get_libgen_rs_fiction_scraper(query: str) -> list:
             "poster": f"https://libgen.gs{str(img_src).replace("_small", "")}",
             # "id": title_href.split("/")[2],
             "language": language,
+            "pages": pages,
+            "size": size,
+            "entension": extention,
             "release_date": release_date,
             "download_links": url
         }
